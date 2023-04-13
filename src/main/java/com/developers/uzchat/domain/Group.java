@@ -11,10 +11,13 @@ public class Group implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private User user;
+
     @ManyToMany
     @JoinTable(
             name = "group_members",
@@ -22,6 +25,7 @@ public class Group implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
     private List<User> members = new ArrayList<>();
+
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages = new ArrayList<>();
 
