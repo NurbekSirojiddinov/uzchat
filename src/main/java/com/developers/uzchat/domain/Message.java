@@ -10,7 +10,6 @@ import java.util.List;
 public class Message implements Serializable {
     @Id
     private Long id;
-    private Long conversationId;
     private Long senderId;
     @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MessageRecipient> recipientIds;
@@ -27,14 +26,6 @@ public class Message implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getConversationId() {
-        return conversationId;
-    }
-
-    public void setConversationId(Long conversationId) {
-        this.conversationId = conversationId;
     }
 
     public Long getSenderId() {
@@ -81,7 +72,6 @@ public class Message implements Serializable {
     public String toString() {
         return "Message{" +
                 "id=" + id +
-                ", conversationId=" + conversationId +
                 ", senderId=" + senderId +
                 ", recipientIds=" + recipientIds +
                 ", conversation=" + conversation +

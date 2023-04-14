@@ -7,7 +7,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "\"user\"")
 public class User implements Serializable {
 
     private String bio;
