@@ -24,11 +24,15 @@ public class Group implements Serializable {
             joinColumns = {@JoinColumn(name = "group_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
-    private List<User> members = new ArrayList<>();
+    private List<User> members;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Message> messages = new ArrayList<>();
+    private List<Message> messages;
 
+    public Group() {
+        members = new ArrayList<>();
+        messages = new ArrayList<>();
+    }
     public void addMember(User member) {
         members.add(member);
     }

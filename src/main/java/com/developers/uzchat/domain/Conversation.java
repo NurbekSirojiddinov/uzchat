@@ -13,15 +13,26 @@ public class Conversation implements Serializable {
     Long id;
 
     @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Message> messages = new ArrayList<>();
+    private List<Message> messages;
+
+    @ManyToMany
+    @JoinTable(
+            name = "conversation_participant",
+            joinColumns = @JoinColumn(name = "conversation_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> participants;
 
     private String name;
 
     @Enumerated(EnumType.STRING)
     private ConversationType type;
 
-
     private int unreadMessages;
+
+    public Conversation() {
+        messages = new ArrayList<>();
+        participants = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
