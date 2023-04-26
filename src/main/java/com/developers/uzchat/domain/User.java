@@ -9,18 +9,14 @@ import java.util.List;
 
 @Entity(name = "\"user\"")
 public class User implements Serializable {
-
     private String bio;
-
+    private String email;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private String password;
-
     private Instant status; //last seen
-
     private String username;
 
 
@@ -54,6 +50,14 @@ public class User implements Serializable {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
