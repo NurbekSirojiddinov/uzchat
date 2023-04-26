@@ -2,48 +2,39 @@ package com.developers.uzchat.domain;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "\"group\"")
-public class Group implements Serializable {
+public class ChannelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String description;
+
     private String name;
 
-    @ManyToOne()
+    @Column(unique = true)
+    private String username;
+
+    @ManyToOne
     @JoinColumn(name = "owner_id")
     private User user;
 
     @ManyToMany
     @JoinTable(
-            name = "group_members",
+            name = "channel_members",
             joinColumns = {@JoinColumn(name = "group_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")}
-    )
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
     private List<User> members;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Message> messages;
+    List<Message> messages;
 
-    public Group() {
-        members = new ArrayList<>();
-        messages = new ArrayList<>();
-    }
-    public void addMember(User member) {
-        members.add(member);
-    }
-
-    public void addMessage(Message message) {
-        messages.add(message);
-    }
-
-    public void removeMember(User member) {
-        members.remove(member);
+    public ChannelEntity() {
+        this.members = new ArrayList<>();
+        this.messages = new ArrayList<>();
     }
 
     public Long getId() {
@@ -54,12 +45,28 @@ public class Group implements Serializable {
         this.id = id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public User getUser() {
@@ -88,9 +95,11 @@ public class Group implements Serializable {
 
     @Override
     public String toString() {
-        return "Group{" +
+        return "ChannelEntity{" +
                 "id=" + id +
+                ", description='" + description + '\'' +
                 ", name='" + name + '\'' +
+                ", username='" + username + '\'' +
                 ", user=" + user +
                 ", members=" + members +
                 ", messages=" + messages +
