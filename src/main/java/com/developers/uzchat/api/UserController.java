@@ -30,8 +30,8 @@ public class UserController {
             summary = "Get user",
             description = "SECURITY: ENABLED\n\nCurrent API should be called to retrieve the user")
     @GetMapping("/{id}")
-    ResponseEntity<UserDto> createNewUser(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.getUser(id));
+    ResponseEntity<UserDto> findUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.findUser(id));
     }
 
     @Operation(

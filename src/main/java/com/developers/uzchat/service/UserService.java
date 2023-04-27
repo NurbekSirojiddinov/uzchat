@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserService {
     UserDto createNewUser(CreateNewUserRequest request);
 
-    UserDto getUser(Long id);
+    UserDto findUser(Long id);
 
     List<UserDto> findAllUser();
 

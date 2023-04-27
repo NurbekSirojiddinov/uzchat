@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUser(Long id) {
+    public UserDto findUser(Long id) {
         return userRepository
                 .findById(id)
                 .map(UserDto::fromUser)
