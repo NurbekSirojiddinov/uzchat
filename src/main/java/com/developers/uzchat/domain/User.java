@@ -23,6 +23,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Group> groups;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<ChannelEntity> channels; // List of my channels
+
     @ManyToMany(mappedBy = "members")
     List<Group> membershipGroups; //List of Groups that I'm member of
 
@@ -106,6 +109,14 @@ public class User implements Serializable {
 
     public void setMembershipGroups(List<Group> membershipGroups) {
         this.membershipGroups = membershipGroups;
+    }
+
+    public List<ChannelEntity> getChannels() {
+        return channels;
+    }
+
+    public void setChannels(List<ChannelEntity> channels) {
+        this.channels = channels;
     }
 
     public List<Conversation> getConversations() {

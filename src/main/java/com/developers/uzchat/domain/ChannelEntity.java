@@ -11,6 +11,12 @@ public class ChannelEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Lob
+    private byte[] profilePhoto;
+
+    @Column(length = 100000)
+    private String introVideo;
+
     private String description;
 
     private String name;
@@ -18,7 +24,7 @@ public class ChannelEntity {
     @Column(unique = true)
     private String username;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private User user;
 
@@ -43,6 +49,22 @@ public class ChannelEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public byte[] getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(byte[] profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
+    public String getIntroVideo() {
+        return introVideo;
+    }
+
+    public void setIntroVideo(String introVideo) {
+        this.introVideo = introVideo;
     }
 
     public String getDescription() {

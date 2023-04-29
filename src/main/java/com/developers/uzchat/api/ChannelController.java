@@ -5,7 +5,9 @@ import com.developers.uzchat.dto.CreateNewChannelRequest;
 import com.developers.uzchat.service.ChannelService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,8 +24,8 @@ public class ChannelController {
             summary = "Creates new channel",
             description = "SECURITY: ENABLED\n\nCurrent API should be called to create a new channel")
     @PostMapping("/create")
-    ResponseEntity<ChannelDto> createNewUser(@RequestBody final CreateNewChannelRequest request) {
-        return ResponseEntity.ok(channelService.createChannel(request));
+    ResponseEntity<ChannelDto> createNewChannel(@RequestPart final CreateNewChannelRequest request, @RequestPart @Nullable MultipartFile poster) {
+        return ResponseEntity.ok(channelService.createChannel(request, poster));
     }
 
     @Operation(

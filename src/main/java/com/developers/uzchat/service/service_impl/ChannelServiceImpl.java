@@ -9,7 +9,10 @@ import com.developers.uzchat.repository.UserRepository;
 import com.developers.uzchat.service.ChannelService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -25,17 +28,27 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public ChannelDto createChannel(CreateNewChannelRequest request) {
+    public ChannelDto createChannel(CreateNewChannelRequest request, MultipartFile poster) {
         Assert.hasText(request.username(), "Channel username cannot be null or blank");
 
-        final User user = userRepository.findById(request.ownerId()).orElseThrow(() -> new NoSuchElementException(String.format("User not found with id [%s]", request.ownerId())));
+        final User user = userRepository
+                .findById(request.ownerId()).orElseThrow(() -> new NoSuchElementException(String.format("User not found with id [%s]", request.ownerId())));
 
         final ChannelEntity channel = new ChannelEntity();
         channel.setDescription(request.description());
         channel.setName(request.name());
         channel.setUser(user);
 
-        return ChannelDto.toPojoWithMembers(channel);
+        if (poster != null) {
+            try {
+                channel.setProfilePhoto(poster.getBytes());
+            } catch (IOException exception) {
+                throw new RuntimeException("Could not upload file");
+            }
+        }
+
+
+        return ChannelDto.toPojoWithMembers(channelRepository.save(channel));
     }
 
     @Override
