@@ -3,7 +3,7 @@ package com.developers.uzchat.service.service_impl;
 import com.developers.uzchat.domain.ChannelEntity;
 import com.developers.uzchat.domain.User;
 import com.developers.uzchat.dto.ChannelDto;
-import com.developers.uzchat.dto.CreateNewChannelRequest;
+import com.developers.uzchat.dto.ChannelRequest;
 import com.developers.uzchat.repository.ChannelRepository;
 import com.developers.uzchat.repository.UserRepository;
 import com.developers.uzchat.service.ChannelService;
@@ -12,7 +12,6 @@ import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -28,7 +27,7 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public ChannelDto createChannel(CreateNewChannelRequest request, MultipartFile poster) {
+    public ChannelDto createChannel(ChannelRequest request, MultipartFile poster) {
         Assert.hasText(request.username(), "Channel username cannot be null or blank");
 
         final User user = userRepository
@@ -68,5 +67,10 @@ public class ChannelServiceImpl implements ChannelService {
         channelRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException(String.format("Channel not found with id [%s]", id)));
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public ChannelDto updateChannel(ChannelRequest request, MultipartFile poster) {
+        return null;
     }
 }

@@ -1,19 +1,26 @@
 package com.developers.uzchat.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@Builder
+@AllArgsConstructor
 @Entity(name = "\"user\"")
 public class User implements Serializable {
-    private String bio;
-    private String email;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String bio;
+    private String email;
     private String name;
     private String password;
     private Instant status; //last seen
@@ -37,7 +44,6 @@ public class User implements Serializable {
         membershipGroups = new ArrayList<>();
         conversations = new ArrayList<>();
     }
-
 
     public void setId(Long id) {
         this.id = id;
