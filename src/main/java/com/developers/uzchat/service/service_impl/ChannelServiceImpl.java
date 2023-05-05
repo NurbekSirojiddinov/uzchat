@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -27,7 +26,8 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public ChannelDto createChannel(ChannelRequest request, MultipartFile poster) {
+    public ChannelDto
+    createChannel(ChannelRequest request) {
         Assert.hasText(request.username(), "Channel username cannot be null or blank");
 
         final User user = userRepository
@@ -37,14 +37,7 @@ public class ChannelServiceImpl implements ChannelService {
         channel.setDescription(request.description());
         channel.setName(request.name());
         channel.setUser(user);
-
-        if (poster != null) {
-            try {
-                channel.setProfilePhoto(poster.getBytes());
-            } catch (IOException exception) {
-                throw new RuntimeException("Could not upload file");
-            }
-        }
+        channel.setIntroVideo("video");
 
 
         return ChannelDto.toPojoWithMembers(channelRepository.save(channel));

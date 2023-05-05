@@ -5,12 +5,13 @@ import com.developers.uzchat.domain.Message;
 
 import java.util.List;
 
-public record ChannelDto(Long id,byte[] photo, String description, String name, String username, List<UserDto> members,
+public record ChannelDto(Long id, String introVideo, String description, String name, String username,
+                         List<UserDto> members,
                          List<Message> messages) {
     public static ChannelDto toPojo(ChannelEntity channel) {
         return new ChannelDto(
                 channel.getId(),
-                channel.getProfilePhoto(),
+                channel.getIntroVideo(),
                 channel.getDescription(),
                 channel.getName(),
                 channel.getUsername(),
@@ -22,7 +23,7 @@ public record ChannelDto(Long id,byte[] photo, String description, String name, 
     public static ChannelDto toPojoWithMembers(ChannelEntity channel) {
         return new ChannelDto(
                 channel.getId(),
-                channel.getProfilePhoto(),
+                channel.getIntroVideo(),
                 channel.getDescription(),
                 channel.getName(),
                 channel.getUsername(),

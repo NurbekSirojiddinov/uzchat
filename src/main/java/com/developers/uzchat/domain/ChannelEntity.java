@@ -10,24 +10,16 @@ public class ChannelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Lob
     private byte[] profilePhoto;
-
-    @Column(length = 100000)
     private String introVideo;
-
     private String description;
-
     private String name;
-
     @Column(unique = true)
     private String username;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private User user;
-
     @ManyToMany
     @JoinTable(
             name = "channel_members",

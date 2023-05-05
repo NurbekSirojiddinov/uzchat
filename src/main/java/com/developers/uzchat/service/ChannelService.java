@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface ChannelService {
-    ChannelDto createChannel(ChannelRequest request, MultipartFile poster);
+    ChannelDto createChannel(ChannelRequest request);
 
     ChannelDto findChannel(Long id);
 
