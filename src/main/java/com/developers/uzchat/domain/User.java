@@ -25,6 +25,8 @@ public class User implements Serializable {
     private String password;
     private Instant status; //last seen
     private String username;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
