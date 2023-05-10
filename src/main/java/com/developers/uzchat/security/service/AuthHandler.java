@@ -3,8 +3,6 @@ package com.developers.uzchat.security.service;
 
 import com.developers.uzchat.context.UserContext;
 import com.developers.uzchat.context.UserPrincipal;
-import com.developers.uzchat.security.service.JwtService;
-import jakarta.security.auth.message.AuthException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;

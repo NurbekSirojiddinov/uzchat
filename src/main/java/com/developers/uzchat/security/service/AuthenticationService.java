@@ -4,13 +4,11 @@ package com.developers.uzchat.security.service;
 import com.developers.uzchat.domain.Role;
 import com.developers.uzchat.domain.User;
 import com.developers.uzchat.repository.UserRepository;
-import com.developers.uzchat.security.auth.AuthenticationRequest;
 import com.developers.uzchat.security.auth.AuthenticationResponse;
 import com.developers.uzchat.security.auth.RegisterRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import java.util.Collections;
-import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor

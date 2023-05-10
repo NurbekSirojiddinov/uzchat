@@ -1,6 +1,5 @@
 package com.developers.uzchat.security.service;
 
-import com.developers.uzchat.security.service.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
