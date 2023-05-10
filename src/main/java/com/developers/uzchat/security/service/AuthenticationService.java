@@ -50,18 +50,4 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
-
-//    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-//        authenticationManager.authenticate(
-//                new UsernamePasswordAuthenticationToken(
-//                        request.getEmail(), request.getPassword()
-//                )
-//        );
-//        var user = repository.findByEmail(request.getEmail())
-//                .orElseThrow(() -> new NoSuchElementException("Such user is not found"));
-//        var jwtToken = jwtService.generateToken((UserDetails) user);
-//        return AuthenticationResponse.builder()
-//                .token(jwtToken)
-//                .build();
-//    }
 }

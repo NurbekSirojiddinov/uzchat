@@ -1,4 +1,4 @@
-package com.developers.uzchat.security;
+package com.developers.uzchat.security.auth;
 
 
 import java.lang.annotation.ElementType;

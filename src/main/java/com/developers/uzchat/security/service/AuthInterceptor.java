@@ -1,8 +1,7 @@
 package com.developers.uzchat.security.service;
 
 import com.developers.uzchat.context.UserContext;
-import com.developers.uzchat.security.Authorized;
-import com.developers.uzchat.security.AuthHandler;
+import com.developers.uzchat.security.auth.Authorized;
 import jakarta.security.auth.message.AuthException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
@@ -32,13 +31,13 @@ public class AuthInterceptor {
         this.authHandler = authHandler;
     }
 
-    @After("@annotation(com.developers.uzchat.security.Authorized)")
+    @After("@annotation(com.developers.uzchat.security.auth.Authorized)")
     public void cleanupAuthorizedRequests() {
         // Cleaning up local thread context before exiting the application
         UserContext.clear();
     }
 
-    @Before("@annotation(com.developers.uzchat.security.Authorized)")
+    @Before("@annotation(com.developers.uzchat.security.auth.Authorized)")
     public void interceptSecuredRequests(final JoinPoint joinPoint) throws AuthException {
         if (request == null) {
             final String errorMsg = "HTTP request content is not available";

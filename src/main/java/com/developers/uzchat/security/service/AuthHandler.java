@@ -1,4 +1,4 @@
-package com.developers.uzchat.security;
+package com.developers.uzchat.security.service;
 
 
 import com.developers.uzchat.context.UserContext;
@@ -19,7 +19,7 @@ public class AuthHandler {
         this.jwtService = jwtService;
     }
 
-    public void authorize(final String jwt) throws AuthException {
+    public void authorize(final String jwt) {
         boolean jwtValidated = jwtService.verify(jwt);
 
         if (jwtValidated) {
