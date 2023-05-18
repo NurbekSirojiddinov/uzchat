@@ -23,7 +23,6 @@ public class AuthHandler {
         if (jwtValidated) {
             final UserPrincipal user = new UserPrincipal(jwtService.extractUsername(jwt));
             UserContext.setUser(user);
-
             LOGGER.debug("[{}] user has been authorized", user);
         }   
     }
