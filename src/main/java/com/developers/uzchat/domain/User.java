@@ -5,26 +5,39 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @Entity(name = "\"user\"")
-public class User implements Serializable {
+public class User implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String bio;
+
+    @Column(unique = true)
     private String email;
+
     private String name;
+
     private String password;
+
     private Instant status; //last seen
+
+    @Column(unique = true)
     private String username;
+
+    private byte[] profilePhoto;
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -47,94 +60,6 @@ public class User implements Serializable {
         conversations = new ArrayList<>();
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Instant getStatus() {
-        return status;
-    }
-
-    public void setStatus(Instant status) {
-        this.status = status;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public List<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
-    }
-
-    public List<Group> getMembershipGroups() {
-        return membershipGroups;
-    }
-
-    public void setMembershipGroups(List<Group> membershipGroups) {
-        this.membershipGroups = membershipGroups;
-    }
-
-    public List<ChannelEntity> getChannels() {
-        return channels;
-    }
-
-    public void setChannels(List<ChannelEntity> channels) {
-        this.channels = channels;
-    }
-
-    public List<Conversation> getConversations() {
-        return conversations;
-    }
-
-    public void setConversations(List<Conversation> conversations) {
-        this.conversations = conversations;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -148,5 +73,30 @@ public class User implements Serializable {
                 ", membershipGroups=" + membershipGroups +
                 ", conversations=" + conversations +
                 '}';
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }

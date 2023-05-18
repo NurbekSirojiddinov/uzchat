@@ -1,5 +1,6 @@
 package com.developers.uzchat.service;
 
+import com.developers.uzchat.domain.User;
 import com.developers.uzchat.dto.CreateNewUserRequest;
 import com.developers.uzchat.dto.UserDto;
 import org.springframework.stereotype.Service;

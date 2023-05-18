@@ -1,5 +1,6 @@
 package com.developers.uzchat.service.service_impl;
 
+import com.developers.uzchat.context.UserContext;
 import com.developers.uzchat.domain.ChannelEntity;
 import com.developers.uzchat.domain.User;
 import com.developers.uzchat.dto.ChannelDto;
@@ -29,9 +30,10 @@ public class ChannelServiceImpl implements ChannelService {
     public ChannelDto
     createChannel(ChannelRequest request) {
         Assert.hasText(request.username(), "Channel username cannot be null or blank");
+        String username = UserContext.getUsername();
 
         final User user = userRepository
-                .findById(request.ownerId()).orElseThrow(() -> new NoSuchElementException(String.format("User not found with id [%s]", request.ownerId())));
+                .findByUsername(username).orElseThrow(() -> new NoSuchElementException(String.format("User not found with id [%s]", request.ownerId())));
 
         final ChannelEntity channel = new ChannelEntity();
         channel.setDescription(request.description());

@@ -21,16 +21,19 @@ import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+
 public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
 
     private static final Logger LOGGER = LogManager.getLogger();
     private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
+    private final CustomAuthenticationProvider provider;
 
-    public CustomAuthenticationFilter(JwtService jwtService, AuthenticationManager authenticationManager) {
+    public CustomAuthenticationFilter(JwtService jwtService, CustomAuthenticationProvider provider) {
         this.jwtService = jwtService;
-        this.authenticationManager = authenticationManager;
+        this.provider = provider;
     }
+
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -40,12 +43,13 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         LOGGER.info("Password is: {}", password);
 
         final UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-        return authenticationManager.authenticate(authenticationToken);
+        LOGGER.info("UsernamePasswordAuthenticationToken: {}", authenticationToken);
+        return provider.authenticate(authenticationToken);
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
-        final UserDetails user = (User) authentication.getPrincipal();
+        final UserDetails user = (UserDetails) authentication.getPrincipal();
         final String access_token = jwtService.generateToken(user);
 
         Map<String, String> tokens = new HashMap<>();
@@ -56,7 +60,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException, ServletException {
-        LOGGER.info("Bad credentials");
+        LOGGER.info("Bad credentialssss");
         super.unsuccessfulAuthentication(request, response, failed);
     }
 }

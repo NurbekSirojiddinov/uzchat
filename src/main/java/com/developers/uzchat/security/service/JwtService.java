@@ -7,6 +7,7 @@ import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.SignedJWT;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -92,30 +93,27 @@ public class JwtService {
     }
 
     public boolean verify(final String token) {
-        try {
-            JWSVerifier verifier = new MACVerifier(SECRET_KEY.getBytes());
-            final SignedJWT signedJWT = SignedJWT.parse(token);
-            if (signedJWT.verify(verifier)) {
-                if (isTokenExpired(token)) {
-                    LOGGER.error("Access token is expired");
-                    throw new AuthException("Access token is expired");
-                }
+        Jws<Claims> jws = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey()) // Provide the public key or secret key
+                .build()
+                .parseClaimsJws(token); // Provide the JWT string to verify
+        // Check expiration time
 
-                final UserDetails userDetails = userDetailsService.loadUserByUsername(extractUsername(token));
-                if (!isTokenValid(token, userDetails)) {
-                    LOGGER.error("Invalid access token");
-                    throw new AuthException("Invalid access token");
-                }
-                return true;
-            } else {
-                LOGGER.error("Access token is not verified");
-                throw new AuthException("Access token is not verified");
-            }
-        } catch (final JOSEException | ParseException e) {
-            LOGGER.error("Failed to verify JWT. Error: ", e);
-
-            throw new AuthException("Access token has an invalid signature", e);
+        if (isTokenExpired(token)) {
+            LOGGER.error("Access token is expired");
+            throw new AuthException("Access token is expired");
         }
+
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(extractUsername(token));
+        if (!isTokenValid(token, userDetails)) {
+            LOGGER.error("Invalid access token");
+            throw new AuthException("Invalid access token");
+        }
+        return true;
+//            } else {
+//                LOGGER.error("Access token is not verified");
+//                throw new AuthException("Access token is not verified");
+//            }
     }
 
 }
