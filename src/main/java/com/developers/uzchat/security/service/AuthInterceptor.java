@@ -11,7 +11,9 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
@@ -60,7 +62,7 @@ public class AuthInterceptor {
             if (bearerToken == null) {
                 LOGGER.error("No bearer token specified in the request header");
 
-                throw new AuthException(MESSAGE_REQUEST_UNAUTHORIZED);
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, MESSAGE_REQUEST_UNAUTHORIZED);
             }
         }
 

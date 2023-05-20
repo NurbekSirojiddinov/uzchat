@@ -2,22 +2,16 @@ package com.developers.uzchat.security.service;
 
 
 import com.developers.uzchat.exception.AuthException;
-import com.nimbusds.jose.JOSEException;
-import com.nimbusds.jose.JWSVerifier;
-import com.nimbusds.jose.crypto.MACVerifier;
-import com.nimbusds.jwt.SignedJWT;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
-import java.security.MessageDigest;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,11 +20,9 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(JwtService.class);
-
     private static final String SECRET_KEY = "655468576D597133743677397A24432646294A404E635266556A586E32723475";
 
-    public JwtService(UserDetailsService userDetailsService) {
+    public JwtService() {
     }
 
     public String generateToken(
@@ -49,15 +41,6 @@ public class JwtService {
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
-
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
-
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
 
     public String extractUsername(final String token) {
         return extractClaim(token, Claims::getSubject);

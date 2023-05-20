@@ -16,7 +16,8 @@ configurations {
 
 repositories {
     mavenCentral()
-}
+    maven { url "https://repo.springdoc.org/release" }
+    }
 
 ext {
     set('testcontainersVersion', "1.17.6")
@@ -38,11 +39,19 @@ dependencies {
     implementation 'org.apache.httpcomponents:httpclient:4.5.13'
     implementation 'org.json:json:20220320'
 
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+
     // Swagger
-    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
-    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.15'
-    // https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+//    compileOnly(group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0')
+//    compileOnly(group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0')
+//    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+//    // https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.4'
+
+
     implementation group: 'org.hibernate', name: 'hibernate-validator', version: '8.0.0.Final'
+
 
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.232'
     testImplementation("org.springframework.boot:spring-boot-starter-test")

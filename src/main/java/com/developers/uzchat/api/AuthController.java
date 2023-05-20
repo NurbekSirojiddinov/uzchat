@@ -26,12 +26,4 @@ public class AuthController {
     public AuthenticationResponse register(@RequestBody RegisterRequest request) {
         return authenticationService.register(request);
     }
-
-//    @Operation(
-//            summary = "Authenticates the user",
-//            description = "SECURITY: DISABLED\\n\\nCurrent API should be called to authenticate the user")
-//    @PostMapping("/authenticate")
-//    public AuthenticationResponse authenticate(@RequestBody AuthenticationRequest request) {
-//        return authenticationService.authenticate(request);
-//    }
 }
