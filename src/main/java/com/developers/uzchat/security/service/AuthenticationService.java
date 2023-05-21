@@ -8,7 +8,6 @@ import com.developers.uzchat.security.auth.AuthenticationResponse;
 import com.developers.uzchat.security.auth.RegisterRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,11 +18,10 @@ import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
-public class    AuthenticationService {
+public class AuthenticationService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private final AuthenticationManager authenticationManager;
 
     @Transactional
     public AuthenticationResponse register(RegisterRequest request) {

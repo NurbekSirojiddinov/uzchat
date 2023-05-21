@@ -18,12 +18,10 @@ import java.util.*;
 @RequestMapping("api/v1/user")
 public class UserController {
     private final UserService userService;
-    private final UserRepository userRepository;
 
 
-    public UserController(UserService userService, UserRepository userRepository) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @Operation(
@@ -34,6 +32,7 @@ public class UserController {
         return ResponseEntity.ok(userService.createNewUser(request));
     }
 
+    @Authorized
     @Operation(
             summary = "Get user",
             description = "SECURITY: ENABLED\n\nCurrent API should be called to retrieve the user")
@@ -42,7 +41,6 @@ public class UserController {
         return ResponseEntity.ok(userService.findUser(id));
     }
 
-    @Authorized
     @Operation(
             summary = "Get all users",
             description = "SECURITY: DISABLED\n\nCurrent API should be called to retrieve the user")
@@ -61,16 +59,16 @@ public class UserController {
         return ResponseEntity.ok("User has successfully been deleted!");
     }
 
-    @PostMapping("/{id}/profilePicture")
-    public ResponseEntity<Void> uploadProfilePicture(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
-        try {
-            User user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found"));
-            user.setProfilePhoto(file.getBytes());
-            userRepository.save(user);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+//    @PostMapping("/{id}/profilePicture")
+//    public ResponseEntity<Void> uploadProfilePicture(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+//        try {
+//            User user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found"));
+//            user.setProfilePhoto(file.getBytes());
+//            userRepository.save(user);
+//            return new ResponseEntity<>(HttpStatus.CREATED);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
 
 }

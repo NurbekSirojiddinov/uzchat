@@ -7,11 +7,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -43,7 +41,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         LOGGER.info("Password is: {}", password);
 
         final UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
-        LOGGER.info("UsernamePasswordAuthenticationToken: {}", authenticationToken);
         return provider.authenticate(authenticationToken);
     }
 
@@ -60,7 +57,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException, ServletException {
-        LOGGER.info("Bad credentialssss");
+        LOGGER.info("Bad credential");
         super.unsuccessfulAuthentication(request, response, failed);
     }
 }

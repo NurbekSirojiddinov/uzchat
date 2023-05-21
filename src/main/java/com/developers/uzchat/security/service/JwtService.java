@@ -76,16 +76,6 @@ public class JwtService {
         } catch (JwtException e) {
             throw new AuthException(e.getMessage());
         }
-//        if (claims.getExpiration().before(new Date())) {
-//            LOGGER.error("Access token is expired");
-//            throw new AuthException("Access token is expired");
-//        }
-//
-//        final UserDetails userDetails = userDetailsService.loadUserByUsername(extractUsername(token));
-//        if (!claims.getSubject().equals(userDetails.getUsername())) {
-//            LOGGER.error("Invalid access token");
-//            throw new AuthException("Invalid access token");
-//        }
         return true;
     }
 

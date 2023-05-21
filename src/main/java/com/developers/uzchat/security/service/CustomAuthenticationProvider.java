@@ -3,7 +3,6 @@ package com.developers.uzchat.security.service;
 import com.developers.uzchat.domain.User;
 import com.developers.uzchat.exception.AuthException;
 import com.developers.uzchat.repository.UserRepository;
-import com.developers.uzchat.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -43,8 +42,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         final User user = userRepository.findByEmail(username).orElseThrow(() -> new AuthException("Such user not found"));
 
         // Check if the user exists and the password matches
-        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
-            throw new BadCredentialsException("Invalid username/password");
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new BadCredentialsException("Invalid password");
         }
 
         // Create the authentication token with the user's authorities

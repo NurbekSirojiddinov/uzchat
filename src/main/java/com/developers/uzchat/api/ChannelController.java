@@ -2,7 +2,6 @@ package com.developers.uzchat.api;
 
 import com.developers.uzchat.dto.ChannelDto;
 import com.developers.uzchat.dto.ChannelRequest;
-import com.developers.uzchat.repository.ChannelRepository;
 import com.developers.uzchat.security.auth.Authorized;
 import com.developers.uzchat.service.ChannelService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,11 +14,9 @@ import java.util.List;
 @RequestMapping("api/v1/channel")
 public class ChannelController {
     private final ChannelService channelService;
-    private final ChannelRepository channelRepository;
 
-    public ChannelController(ChannelService channelService, ChannelRepository channelRepository) {
+    public ChannelController(ChannelService channelService) {
         this.channelService = channelService;
-        this.channelRepository = channelRepository;
     }
 
     @Authorized
