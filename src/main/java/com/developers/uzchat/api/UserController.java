@@ -1,18 +1,14 @@
 package com.developers.uzchat.api;
 
-import com.developers.uzchat.domain.User;
 import com.developers.uzchat.dto.CreateNewUserRequest;
 import com.developers.uzchat.dto.UserDto;
-import com.developers.uzchat.repository.UserRepository;
 import com.developers.uzchat.security.auth.Authorized;
 import com.developers.uzchat.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/user")
