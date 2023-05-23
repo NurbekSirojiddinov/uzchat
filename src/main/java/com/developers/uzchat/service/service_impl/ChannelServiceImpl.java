@@ -5,6 +5,7 @@ import com.developers.uzchat.domain.ChannelEntity;
 import com.developers.uzchat.domain.User;
 import com.developers.uzchat.dto.ChannelDto;
 import com.developers.uzchat.dto.ChannelRequest;
+import com.developers.uzchat.dto.ChannelUpdateRequest;
 import com.developers.uzchat.repository.ChannelRepository;
 import com.developers.uzchat.repository.UserRepository;
 import com.developers.uzchat.service.ChannelService;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -33,7 +36,7 @@ public class ChannelServiceImpl implements ChannelService {
         String username = UserContext.getUsername();
 
         final User user = userRepository
-                .findByUsername(username).orElseThrow(() -> new NoSuchElementException(String.format("User not found with id [%s]", request.ownerId())));
+                .findByUsername(username).orElseThrow(() -> new NoSuchElementException(String.format("User not found with id [%s]", username)));
 
         final ChannelEntity channel = new ChannelEntity();
         channel.setDescription(request.description());
@@ -65,7 +68,15 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public ChannelDto updateChannel(ChannelRequest request, MultipartFile poster) {
-        return null;
+    public ChannelDto updateChannel(ChannelUpdateRequest request) {
+        Assert.hasText(String.valueOf(request.channelId()), "channelId cannot be null or blank");
+
+        ChannelEntity channel = channelRepository.findById(request.channelId()).orElseThrow(() -> new NoSuchElementException(String.format("Such channel nor found with id [%s]", request.channelId())));
+        channel.setName(request.name());
+        channel.setDescription(request.description());
+        channel.setUsername(request.username());
+        channel.setLastModifiedDate(Instant.now());
+
+        return ChannelDto.toPojoWithMembers(channel);
     }
 }

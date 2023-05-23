@@ -2,6 +2,7 @@ package com.developers.uzchat.service;
 
 import com.developers.uzchat.dto.ChannelDto;
 import com.developers.uzchat.dto.ChannelRequest;
+import com.developers.uzchat.dto.ChannelUpdateRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,5 +18,5 @@ public interface ChannelService {
 
     void deleteChannel(Long id);
 
-    ChannelDto updateChannel(ChannelRequest request, MultipartFile poster);
+    ChannelDto updateChannel(ChannelUpdateRequest request);
 }

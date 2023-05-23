@@ -41,4 +41,9 @@ public class AdminController {
         model.addAttribute("user", user);
         return "redirect:/admin/users";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "admin_login";
+    }
 }

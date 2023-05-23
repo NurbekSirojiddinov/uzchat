@@ -1,7 +1,10 @@
 package com.developers.uzchat.domain;
 
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +17,10 @@ public class ChannelEntity {
     private byte[] profilePhoto;
     private String introVideo;
     private String description;
+    @CreatedDate
+    private Instant createdDate;
+    @LastModifiedDate
+    private Instant lastModifiedDate;
     private String name;
     @Column(unique = true)
     private String username;
@@ -65,6 +72,22 @@ public class ChannelEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Instant getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Instant createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Instant getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Instant lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     public String getName() {

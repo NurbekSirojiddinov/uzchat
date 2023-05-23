@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +40,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         LOGGER.info("Validating credentials for user: {}", username);
 
         // Call the UserService to retrieve the user with the provided username
-        final User user = userRepository.findByEmail(username).orElseThrow(() -> new AuthException("Such user not found"));
+        final User user = userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Such user not found"));
 
         // Check if the user exists and the password matches
         if (!passwordEncoder.matches(password, user.getPassword())) {

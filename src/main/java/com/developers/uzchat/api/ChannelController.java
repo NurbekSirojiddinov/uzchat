@@ -2,6 +2,7 @@ package com.developers.uzchat.api;
 
 import com.developers.uzchat.dto.ChannelDto;
 import com.developers.uzchat.dto.ChannelRequest;
+import com.developers.uzchat.dto.ChannelUpdateRequest;
 import com.developers.uzchat.security.auth.Authorized;
 import com.developers.uzchat.service.ChannelService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,6 +56,15 @@ public class ChannelController {
     ResponseEntity<?> deleteChannel(@PathVariable Long id) {
         channelService.deleteChannel(id);
         return ResponseEntity.ok("Channel has successfully been deleted");
+    }
+
+    @Authorized
+    @Operation(
+            summary = "Updates user's channel",
+            description = "SECURITY: ENABLED\n\nUpdates a channel of the user")
+    @PatchMapping("/update")
+    ResponseEntity<ChannelDto> updateChannel(@RequestBody ChannelUpdateRequest request) {
+        return ResponseEntity.ok(channelService.updateChannel(request));
     }
 
 //    @PostMapping("/upload-audio/{channelId}")
