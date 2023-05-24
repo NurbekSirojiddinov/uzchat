@@ -1,4 +1,4 @@
-package com.developers.uzchat.service;
+package com.developers.uzchat.service.service_impl;
 
 import com.amazonaws.services.s3.AmazonS3;
 import org.springframework.beans.factory.annotation.Value;

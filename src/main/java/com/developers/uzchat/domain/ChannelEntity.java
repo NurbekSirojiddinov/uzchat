@@ -46,6 +46,10 @@ public class ChannelEntity {
         return id;
     }
 
+    public void addMember(User user) {
+        members.add(user);
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

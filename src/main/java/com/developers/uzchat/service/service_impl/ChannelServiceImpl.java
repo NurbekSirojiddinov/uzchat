@@ -8,12 +8,11 @@ import com.developers.uzchat.dto.ChannelRequest;
 import com.developers.uzchat.dto.ChannelUpdateRequest;
 import com.developers.uzchat.repository.ChannelRepository;
 import com.developers.uzchat.repository.UserRepository;
+import com.developers.uzchat.security.auth.Authorized;
 import com.developers.uzchat.service.ChannelService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -78,5 +77,19 @@ public class ChannelServiceImpl implements ChannelService {
         channel.setLastModifiedDate(Instant.now());
 
         return ChannelDto.toPojoWithMembers(channel);
+    }
+
+    @Authorized
+    @Override
+    public ChannelDto joinChannel(Long channelId) {
+        Assert.hasText(String.valueOf(channelId), "Channel Id cannot be null or blank");
+
+        ChannelEntity channel = channelRepository.findById(channelId).orElseThrow(() -> new NoSuchElementException(String.format("Channel not found with id [%s]", channelId)));
+        String username = UserContext.getUsername();
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new NoSuchElementException("Such user doesn't exist!"));
+
+        channel.addMember(user);
+
+        return ChannelDto.toPojo(channelRepository.save(channel));
     }
 }

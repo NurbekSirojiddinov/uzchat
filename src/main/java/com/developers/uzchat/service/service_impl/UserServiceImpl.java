@@ -1,7 +1,9 @@
 package com.developers.uzchat.service.service_impl;
 
+import com.developers.uzchat.domain.ChannelEntity;
 import com.developers.uzchat.domain.User;
 import com.developers.uzchat.dto.CreateNewUserRequest;
+import com.developers.uzchat.dto.RequestToJoinChannel;
 import com.developers.uzchat.dto.UserDto;
 import com.developers.uzchat.repository.UserRepository;
 import com.developers.uzchat.security.auth.Authorized;

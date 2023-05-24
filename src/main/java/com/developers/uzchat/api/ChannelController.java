@@ -67,6 +67,15 @@ public class ChannelController {
         return ResponseEntity.ok(channelService.updateChannel(request));
     }
 
+    @Authorized
+    @Operation(
+            summary = "Request to join channel",
+            description = "SECURITY: ENABLED\n\nThis endpoint is used to request to join a channel corresponding to channelId, it can only be used authorized user")
+    @PostMapping("/join/{channelId}")
+    ResponseEntity<ChannelDto> joinChannel(@PathVariable Long channelId) {
+        return ResponseEntity.ok(channelService.joinChannel(channelId));
+    }
+
 //    @PostMapping("/upload-audio/{channelId}")
 //    public ResponseEntity<String> handleAudioUpload(@RequestParam("file") MultipartFile file, @PathVariable Long channelId) {
 //        try {

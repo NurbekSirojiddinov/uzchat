@@ -55,6 +55,8 @@ public class UserController {
         return ResponseEntity.ok("User has successfully been deleted!");
     }
 
+
+
 //    @PostMapping("/{id}/profilePicture")
 //    public ResponseEntity<Void> uploadProfilePicture(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
 //        try {

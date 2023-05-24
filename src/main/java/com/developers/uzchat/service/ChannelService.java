@@ -4,7 +4,6 @@ import com.developers.uzchat.dto.ChannelDto;
 import com.developers.uzchat.dto.ChannelRequest;
 import com.developers.uzchat.dto.ChannelUpdateRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -19,4 +18,6 @@ public interface ChannelService {
     void deleteChannel(Long id);
 
     ChannelDto updateChannel(ChannelUpdateRequest request);
+
+    ChannelDto joinChannel(Long channelId);
 }
