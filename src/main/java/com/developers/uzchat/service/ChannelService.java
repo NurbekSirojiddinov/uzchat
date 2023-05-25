@@ -20,4 +20,6 @@ public interface ChannelService {
     ChannelDto updateChannel(ChannelUpdateRequest request);
 
     ChannelDto joinChannel(Long channelId);
+
+    ChannelDto removeChannelMember(Long channelId, String username);
 }

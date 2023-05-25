@@ -6,7 +6,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class ChannelEntity {
@@ -32,13 +34,13 @@ public class ChannelEntity {
             name = "channel_members",
             joinColumns = {@JoinColumn(name = "group_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private List<User> members;
+    private Map<String, User> members;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Message> messages;
 
     public ChannelEntity() {
-        this.members = new ArrayList<>();
+        this.members = new HashMap<>();
         this.messages = new ArrayList<>();
     }
 
@@ -47,7 +49,7 @@ public class ChannelEntity {
     }
 
     public void addMember(User user) {
-        members.add(user);
+        members.put(user.getUsername(), user);
     }
 
     public void setId(Long id) {
@@ -118,11 +120,11 @@ public class ChannelEntity {
         this.user = user;
     }
 
-    public List<User> getMembers() {
+    public Map<String, User> getMembers() {
         return members;
     }
 
-    public void setMembers(List<User> members) {
+    public void setMembers(Map<String, User> members) {
         this.members = members;
     }
 

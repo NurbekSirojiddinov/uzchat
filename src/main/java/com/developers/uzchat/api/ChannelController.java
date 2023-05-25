@@ -76,6 +76,15 @@ public class ChannelController {
         return ResponseEntity.ok(channelService.joinChannel(channelId));
     }
 
+    @Authorized
+    @Operation(
+            summary = "Removes channel member",
+            description = "SECURITY: ENABLED\n\nThis endpoint is used to remove member of channel. Note this endpoint is only accessible to channel owner")
+    @DeleteMapping("/member/{channelId}")
+    ResponseEntity<ChannelDto> removeUser(@PathVariable Long channelId, @RequestBody String username) {
+        return ResponseEntity.ok(channelService.removeChannelMember(channelId, username));
+    }
+
 //    @PostMapping("/upload-audio/{channelId}")
 //    public ResponseEntity<String> handleAudioUpload(@RequestParam("file") MultipartFile file, @PathVariable Long channelId) {
 //        try {
