@@ -54,19 +54,4 @@ public class UserController {
 
         return ResponseEntity.ok("User has successfully been deleted!");
     }
-
-
-
-//    @PostMapping("/{id}/profilePicture")
-//    public ResponseEntity<Void> uploadProfilePicture(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
-//        try {
-//            User user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found"));
-//            user.setProfilePhoto(file.getBytes());
-//            userRepository.save(user);
-//            return new ResponseEntity<>(HttpStatus.CREATED);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-
 }

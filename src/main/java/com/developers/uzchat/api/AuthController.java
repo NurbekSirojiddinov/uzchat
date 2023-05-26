@@ -1,6 +1,5 @@
 package com.developers.uzchat.api;
 
-import com.developers.uzchat.security.auth.AuthenticationRequest;
 import com.developers.uzchat.security.auth.AuthenticationResponse;
 import com.developers.uzchat.security.auth.RegisterRequest;
 import com.developers.uzchat.security.service.AuthenticationService;
